@@ -1,0 +1,293 @@
+/* ───────── Token desain ───────── */
+:root {
+  --bg: rgba(12, 12, 14, 0.96);
+  --bg-2: rgba(255, 255, 255, 0.06);
+  --bg-3: rgba(255, 255, 255, 0.11);
+  --stroke: rgba(255, 255, 255, 0.09);
+  --text: #f5f5f7;
+  --text-2: rgba(245, 245, 247, 0.64);
+  --text-3: rgba(245, 245, 247, 0.4);
+  --accent-rgb: 245, 245, 247;
+  --amb: 0, 0, 0;
+  --amb-o: 0;
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --bad: #fb7185;
+  --cam: #34d399;
+  --mic: #fb923c;
+  --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-d: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: transparent; /* jendela transparan → latar HARUS transparan */
+}
+
+body {
+  font: 12px/1.35 var(--font);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(var(--accent-rgb), 0.7);
+  outline-offset: 1px;
+}
+input {
+  font: inherit;
+  color: inherit;
+}
+img {
+  -webkit-user-drag: none;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+.grow {
+  flex: 1;
+}
+.ok {
+  color: var(--ok);
+}
+.bad {
+  color: var(--bad);
+}
+
+/* scrollbar tipis */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ───────── Tombol ikon ───────── */
+.ibtn {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border-radius: 999px;
+  color: var(--text);
+  transition: background 0.15s, transform 0.12s var(--ease), color 0.15s;
+}
+.ibtn:hover:not(:disabled) {
+  background: var(--bg-3);
+}
+.ibtn:active:not(:disabled) {
+  transform: scale(0.9);
+}
+.ibtn:disabled {
+  opacity: 0.3;
+}
+.ibtn[data-active] {
+  color: rgb(var(--accent-rgb));
+}
+.ibtn.xs {
+  width: 22px;
+  height: 22px;
+}
+.ibtn.sm {
+  width: 26px;
+  height: 26px;
+}
+.ibtn.md {
+  width: 32px;
+  height: 32px;
+}
+.ibtn.lg {
+  width: 40px;
+  height: 40px;
+}
+.ibtn.solid {
+  background: rgb(var(--accent-rgb));
+  color: #0b0b0d;
+}
+.ibtn.solid:hover:not(:disabled) {
+  background: rgb(var(--accent-rgb));
+  filter: brightness(1.08);
+}
+
+.ghost {
+  font-size: 11px;
+  color: var(--text-2);
+  padding: 3px 9px;
+  border-radius: 999px;
+  transition: background 0.15s, color 0.15s;
+}
+.ghost:hover {
+  background: var(--bg-3);
+  color: var(--text);
+}
+
+/* ───────── Komponen bersama ───────── */
+.ring {
+  position: relative;
+  display: inline-block;
+  flex: none;
+}
+.ring svg {
+  display: block;
+}
+.ring-in {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+}
+
+.eq {
+  display: flex;
+  height: 12px;
+  align-items: flex-end;
+  gap: 2px;
+}
+.eq i {
+  display: block;
+  width: 2px;
+  height: 100%;
+  border-radius: 2px;
+  background: rgb(var(--accent-rgb));
+  transform-origin: bottom;
+  animation: eq 0.9s ease-in-out infinite;
+}
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.viz {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+  flex: none;
+}
+.viz i {
+  display: block;
+  width: 2px;
+  height: 100%;
+  border-radius: 2px;
+  background: rgb(var(--accent-rgb));
+  transform: scaleY(0.14);
+  will-change: transform;
+}
+
+.slider {
+  position: relative;
+  height: 16px;
+  min-width: 40px;
+  cursor: pointer;
+  touch-action: none;
+}
+.slider::before,
+.slider i {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6px;
+  height: 4px;
+  border-radius: 4px;
+}
+.slider::before {
+  background: rgba(255, 255, 255, 0.16);
+}
+.slider i {
+  transform-origin: left;
+  background: rgb(var(--accent-rgb));
+}
+.slider b {
+  position: absolute;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  transition: transform 0.12s;
+}
+.slider:hover b {
+  transform: scale(1.18);
+}
+.slider.wide {
+  flex: 1;
+}
+.slider.vol {
+  width: 76px;
+  flex: none;
+}
+
+.spark {
+  display: block;
+}
+
+.ficon {
+  object-fit: contain;
+  flex: none;
+}
+.ficon.fallback {
+  display: inline-grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-2);
+}
+
+.empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-3);
+  text-align: center;
+}
+.empty b {
+  color: var(--text-2);
+  font-size: 12.5px;
+  margin-top: 4px;
+  font-weight: 600;
+}
+.empty span {
+  font-size: 10.5px;
+}

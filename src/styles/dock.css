@@ -1,0 +1,177 @@
+.dock-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.dock-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  display: flex;
+  justify-content: center;
+}
+.dock {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  border-radius: 26px;
+  background: rgba(18, 18, 22, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.45s var(--ease), opacity 0.3s;
+  will-change: transform;
+}
+.dock-root[data-hidden] .dock {
+  transform: translateY(calc(100% + 16px));
+  opacity: 0;
+}
+.hot {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 360px;
+  height: 8px;
+  margin-left: -180px;
+}
+.dock-root:not([data-hidden]) .hot {
+  display: none;
+}
+.slot {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+.sep {
+  position: absolute;
+  left: -17px;
+  bottom: 6px;
+  width: 1px;
+  height: calc(var(--s) * 0.7);
+  background: rgba(255, 255, 255, 0.16);
+}
+.ditem {
+  position: relative;
+  display: block;
+  width: var(--s);
+  height: var(--s);
+  transform-origin: 50% 100%;
+  transition: transform 0.28s var(--ease);
+  will-change: transform;
+}
+.dock:hover .ditem {
+  transition: transform 0.07s linear;
+}
+.ditem .ficon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+}
+.ditem[data-drag] {
+  opacity: 0.45;
+}
+.ditem[data-bounce] {
+  animation: bounce 0.7s var(--ease) 2;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  45% {
+    translate: 0 -22px;
+  }
+}
+.ditem u {
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+.ditem u[data-on] {
+  background: #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+.ditem u[data-n="2"] {
+  box-shadow: -6px 0 0 rgba(255, 255, 255, 0.5), 6px 0 0 transparent;
+}
+.ditem u[data-n="3"] {
+  box-shadow: -6px 0 0 rgba(255, 255, 255, 0.5), 6px 0 0 rgba(255, 255, 255, 0.5);
+}
+.tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  margin-left: 0;
+  white-space: nowrap;
+  font-size: 12px;
+  padding: 5px 11px;
+  border-radius: 10px;
+  background: rgba(24, 24, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  translate: -50% 0;
+  pointer-events: none;
+  animation: tipIn 0.15s var(--ease);
+}
+@keyframes tipIn {
+  from {
+    opacity: 0;
+    margin-bottom: -4px;
+  }
+}
+.dock-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 10px;
+  color: var(--text-2);
+  font-size: 12px;
+}
+.dmenu {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  width: 188px;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgba(24, 24, 28, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  animation: tipIn 0.18s var(--ease);
+}
+.dmenu b {
+  font-size: 11px;
+  color: var(--text-3);
+  padding: 4px 10px 6px;
+  font-weight: 600;
+}
+.dmenu button {
+  text-align: left;
+  font-size: 12.5px;
+  padding: 7px 10px;
+  border-radius: 9px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dmenu button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.dmenu .win {
+  color: var(--text-2);
+  font-size: 11.5px;
+  padding-left: 18px;
+}
+.dmenu .danger {
+  color: var(--bad);
+}
